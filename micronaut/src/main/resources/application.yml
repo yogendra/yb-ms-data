@@ -1,0 +1,24 @@
+micronaut:
+  application:
+    name: yb-micronaut-data
+  router:
+    static-resources:
+      default:
+        enabled: true
+        paths: classpath:META-INF/resources
+datasources:
+  default:
+    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte
+    driverClassName: com.yugabyte.Driver
+    auto-commit: false
+    data-source-properties:
+      load-balance: true
+      currentSchema: todo
+    username: yugabyte
+    password: yugabyte
+    minimum-idle: 5
+    maximum-pool-size: 20
+flyway:
+  datasources:
+    default:
+      baseline-on-migrate: true
