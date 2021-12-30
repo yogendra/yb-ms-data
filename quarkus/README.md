@@ -44,7 +44,7 @@ quarkus:
       initial-size: 5
       max-size: 20
       additional-jdbc-properties:
-        load-balance: todo
+        load-balance: true
 ```
 
 - **db-kind** indicates the type of the db instance. The value can be *pqsql* or *postgresql* for Postgres or Postgres API compatible instances. As YugabyteDB reuses Postgres Query layer, you can have one of these values.
