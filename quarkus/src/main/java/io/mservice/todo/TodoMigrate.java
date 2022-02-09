@@ -1,6 +1,5 @@
 package io.mservice.todo;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 
 import io.agroal.api.AgroalDataSource;

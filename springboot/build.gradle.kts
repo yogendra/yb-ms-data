@@ -1,7 +1,8 @@
 plugins {
-    id("org.springframework.boot") version "2.5.6"
+    id("org.springframework.boot") version "2.6.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("java")
+    id("org.springframework.experimental.aot") version "0.11.0"
 }
 
 group = "io.mservice.boot"
@@ -36,8 +37,7 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.0")
-    implementation("org.postgresql:postgresql")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.3")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0")
@@ -54,3 +54,4 @@ tasks.bootBuildImage {
     imageName = "humourmind/${project.name}:${project.version}"
     pullPolicy = org.springframework.boot.buildpack.platform.build.PullPolicy.IF_NOT_PRESENT
 }
+

@@ -22,7 +22,7 @@ dependencies {
     implementation("io.quarkus:quarkus-agroal")
     implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
 
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.0")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.3")
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
