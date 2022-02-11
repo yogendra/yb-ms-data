@@ -1,13 +1,16 @@
 plugins {
-    id("org.springframework.boot") version "2.6.1"
+    id("org.springframework.boot") version "2.6.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("java")
-    id("org.springframework.experimental.aot") version "0.11.0"
+    // id("org.springframework.experimental.aot") version "0.11.2"
 }
 
 group = "io.mservice.boot"
 version = "1.0.0"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java {
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+}
 
 configurations {
     compileOnly {
@@ -16,6 +19,7 @@ configurations {
 }
 
 repositories {
+    maven { url = uri("https://repo.spring.io/release") }
     mavenCentral()
     mavenLocal()
 }

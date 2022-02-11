@@ -2,13 +2,11 @@ package io.mservice.todo;
 
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.sql.DataSource;
 
-import com.yugabyte.util.PSQLException;
 import com.yugabyte.ysql.YBClusterAwareDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +20,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Sort;
 import org.springframework.retry.annotation.EnableRetry;
-import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.function.RouterFunction;
@@ -64,15 +62,12 @@ public class TodoApplication {
 	}
 
 	@Bean
-	public RetryTemplate retryTemplate() {
-		SimpleRetryPolicy sp = new SimpleRetryPolicy(2, new HashMap<>() {
-			{
-				put(SQLException.class, true);
-				put(PSQLException.class, true);
-			}
-		}, true);
+	public RetryTemplate retryTemplate(TodoRetryPolicy todoRetryPolicy) {
 		RetryTemplate retryTemplate = new RetryTemplate();
-		retryTemplate.setRetryPolicy(sp);
+		ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
+		backOffPolicy.setMaxInterval(5000); //10s
+		retryTemplate.setRetryPolicy(todoRetryPolicy);
+		retryTemplate.setBackOffPolicy(backOffPolicy);
 		return retryTemplate;
 	}
 
