@@ -18,6 +18,7 @@ datasources:
     password: yugabyte
     minimum-idle: 5
     maximum-pool-size: 20
+    keepalive-time: 120000
 flyway:
   datasources:
     default:
