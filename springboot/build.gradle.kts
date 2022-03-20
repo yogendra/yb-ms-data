@@ -8,8 +8,8 @@ plugins {
 group = "io.mservice.boot"
 version = "1.0.0"
 java {
-    sourceCompatibility = JavaVersion.VERSION_16
-    targetCompatibility = JavaVersion.VERSION_16
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 configurations {
@@ -30,9 +30,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.flywaydb:flyway-core")
     implementation("org.springdoc:springdoc-openapi-ui:1.5.9")
-    implementation("com.yugabyte:spring-data-yugabytedb-ysql:2.3.0") {
-        exclude(module = "jdbc-yugabytedb")
-    }
     implementation("org.springframework.retry:spring-retry")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
@@ -41,7 +38,7 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.3")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.4")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0")

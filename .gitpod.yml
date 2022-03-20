@@ -1,0 +1,32 @@
+image: gitpod/workspace-yugabytedb
+
+tasks:
+  - name: app-run
+    before: cd springboot
+    init: >
+      y | sdk install java 17.0.2-librca || true &&
+      gradle clean build -x test
+    command: java -jar build/libs/*.jar
+
+# exposed ports
+ports:
+  - port: 8080
+    onOpen: notify
+  - port: 7000
+    onOpen: notify
+  - port: 9000
+    onOpen: notify
+  - port: 37843
+    onOpen: ignore
+  - port: 7100
+    onOpen: ignore
+  - port: 9100
+    onOpen: ignore
+  - port: 5433
+    onOpen: ignore
+  - port: 13000
+    onOpen: ignore
+  - port: 9042
+    onOpen: ignore
+  - port: 12000
+    onOpen: ignore
