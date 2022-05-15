@@ -4,3 +4,4 @@ datasources:
     driverClassName: com.yugabyte.Driver
     data-source-properties:
       load-balance: true
+    username: yugabyte

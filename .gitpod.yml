@@ -23,19 +23,23 @@ tasks:
     before: |
       sudo install-packages postgresql-12 postgresql-contrib-12
       sudo su postgres
-      pg_ctlcluster 12 main start
     command: |
+      pg_ctlcluster 12 main start
       gp await-port 5432
       psql
   - name: 2a-spring-boot
+    env:
+      SPRING_PROFILES_ACTIVE: ysql
     before: | 
       cd springboot
       gp sync-await jvm-17
       gradle build -x test
     command: |
       gp await-port 5433
-      gradle -Dspring.profiles.active=ysql bootRun
+      gradle bootRun
   - name: 2b-quarkus
+    env:
+      QUARKUS_PROFILE: ysql
     before: | 
       cd quarkus
       gp sync-await jvm-17
@@ -44,13 +48,15 @@ tasks:
       gp await-port 5433
       gradle -Dquarkus.profile=ysql quarkusDev
   - name: 2c-micronaut
+    env:
+      MICRONAUT_ENVIRONMENTS: ysql
     before: | 
       cd micronaut
       gp sync-await jvm-17
       gradle build -x test
     command: |
       gp await-port 5433
-      gradle -Dmicronaut.environments=ysql run
+      gradle run
 
 # exposed ports
 ports:

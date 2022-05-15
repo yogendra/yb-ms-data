@@ -5,3 +5,4 @@ quarkus:
       driver: com.yugabyte.Driver
       additional-jdbc-properties:
         load-balance: true
+    username: yugabyte
