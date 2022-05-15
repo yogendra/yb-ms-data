@@ -1,0 +1,7 @@
+quarkus:
+  datasource:
+    jdbc:
+      url: jdbc:yugabytedb://127.0.0.1:5433/yugabyte
+      driver: com.yugabyte.Driver
+      additional-jdbc-properties:
+        load-balance: true

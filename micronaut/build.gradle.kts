@@ -33,6 +33,7 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
+    implementation("org.postgresql:postgresql:42.3.5")
     implementation("com.yugabyte:jdbc-yugabytedb:42.3.3")
 }
 

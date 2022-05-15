@@ -3,16 +3,11 @@ quarkus:
     name: yb-quarkus-data
   datasource:
     jdbc:
-      url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte
-      driver: com.yugabyte.Driver
       initial-size: 5
       max-size: 20
       min-size: 5
       additional-jdbc-properties:
         currentSchema: qtodo
-        load-balance: true
-    username: yugabyte
-    password: yugabyte
     db-kind: pgsql
   flyway:
     baseline-on-migrate: true

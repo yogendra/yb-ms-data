@@ -34,7 +34,7 @@ tasks:
       gradle build -x test
     command: |
       gp await-port 5433
-      gradle bootRun
+      gradle -Dspring.profiles.active=ysql bootRun
   - name: 2b-quarkus
     before: | 
       cd quarkus
@@ -42,7 +42,7 @@ tasks:
       gradle quarkusBuild -x test
     command: |
       gp await-port 5433
-      gradle quarkusDev
+      gradle -Dquarkus.profile=ysql quarkusDev
   - name: 2c-micronaut
     before: | 
       cd micronaut
@@ -50,7 +50,7 @@ tasks:
       gradle build -x test
     command: |
       gp await-port 5433
-      gradle run
+      gradle -Dmicronaut.environments=ysql run
 
 # exposed ports
 ports:

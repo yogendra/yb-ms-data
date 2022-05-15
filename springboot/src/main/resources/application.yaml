@@ -12,11 +12,6 @@ spring:
         default_schema: stodo
     open-in-view: false
   datasource:
-#    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte?load-balance=true&topology-keys=ybcloud.ap-south-1.ap-south-1a
-    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte?load-balance=true
-    username: yugabyte
-#    password: yugabyte
-    driver-class-name: com.yugabyte.Driver
     hikari:
       minimum-idle: 5
       maximum-pool-size: 20

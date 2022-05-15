@@ -38,6 +38,7 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+    implementation("org.postgresql:postgresql:42.3.5")
     implementation("com.yugabyte:jdbc-yugabytedb:42.3.4")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
