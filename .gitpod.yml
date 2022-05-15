@@ -19,6 +19,14 @@ tasks:
     before: |
       echo y | sdk install java 17.0.3-librca || true
       gp sync-done jvm-17
+  - name: 1c-postgres
+    before: |
+      sudo install-packages postgresql-12 postgresql-contrib-12
+      sudo su postgres
+      pg_ctlcluster 12 main start
+    command: |
+      gp await-port 5432
+      psql
   - name: 2a-spring-boot
     before: | 
       cd springboot
