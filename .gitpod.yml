@@ -35,8 +35,8 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp await-port 5433
-      gradle bootRun
+      gp await-port 5433 && gp await-port 5432
+      gradle bootRun --args='--spring.profiles.active=psql'
   - name: 2b-quarkus
     env:
       QUARKUS_PROFILE: ysql
@@ -45,8 +45,8 @@ tasks:
       gp sync-await jvm-17
       gradle quarkusBuild -x test
     command: |
-      gp await-port 5433
-      gradle -Dquarkus.profile=ysql quarkusDev
+      gp await-port 5433 && gp await-port 5432
+      gradle -Dquarkus.profile=psql quarkusDev
   - name: 2c-micronaut
     env:
       MICRONAUT_ENVIRONMENTS: ysql
@@ -55,8 +55,8 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp await-port 5433
-      gradle run
+      gp await-port 5433 && gp await-port 5432
+      MICRONAUT_ENVIRONMENTS=psql gradle run
 
 # exposed ports
 ports:
