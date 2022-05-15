@@ -9,10 +9,12 @@ quarkus:
       max-size: 20
       min-size: 5
       additional-jdbc-properties:
-        currentSchema: todo
+        currentSchema: qtodo
         load-balance: true
     username: yugabyte
     password: yugabyte
     db-kind: pgsql
   flyway:
     baseline-on-migrate: true
+  http:
+    port: 8085

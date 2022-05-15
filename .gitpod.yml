@@ -4,7 +4,7 @@ tasks:
   - name: app-run
     before: cd springboot
     init: >
-      y | sdk install java 17.0.2-librca || true &&
+      echo y | sdk install java 17.0.3-librca || true &&
       gradle clean build -x test
     command: java -jar build/libs/*.jar
 

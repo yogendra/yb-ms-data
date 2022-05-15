@@ -3,21 +3,24 @@ spring:
     name: yb-boot-data
   flyway:
     baseline-on-migrate: true
-    schemas: todo
+    schemas: stodo,public
   jpa:
     properties:
       hibernate:
         connection:
           provider_disables_autocommit: true
-        default_schema: todo
+        default_schema: stodo
     open-in-view: false
   datasource:
-    url: jdbc:yugabytedb://127.0.0.1:5433/yugabyte?load-balance=true
+#    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte?load-balance=true&topology-keys=ybcloud.ap-south-1.ap-south-1a
+    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte?load-balance=true
     username: yugabyte
-    password: yugabyte
+#    password: yugabyte
     driver-class-name: com.yugabyte.Driver
     hikari:
       minimum-idle: 5
       maximum-pool-size: 20
       auto-commit: false
       keepalive-time: 120000
+server:
+  port: 8080

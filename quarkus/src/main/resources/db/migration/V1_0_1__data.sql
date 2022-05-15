@@ -1,1 +1,5 @@
-INSERT INTO todo(id, task, status) VALUES (uuid_generate_v4(), 'My first todo', true);
+set search_path=qtodo,public;
+INSERT INTO todo(id, task, status) VALUES (uuid_generate_v4(), 'Yugabyte YFTT', false);
+INSERT INTO todo(id, task, status) VALUES (uuid_generate_v4(), 'Yugabyte University', false);
+INSERT INTO todo(id, task, status) VALUES (uuid_generate_v4(), 'Yugabyte Blogs', false);
+INSERT INTO todo(id, task, status) VALUES (uuid_generate_v4(), 'Yugabyte Community Slack', false);

@@ -1,4 +1,4 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" schema public;
 CREATE TABLE IF NOT EXISTS todo
 (
     id           uuid PRIMARY KEY,

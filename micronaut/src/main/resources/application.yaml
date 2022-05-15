@@ -6,6 +6,8 @@ micronaut:
       default:
         enabled: true
         paths: classpath:META-INF/resources
+  server:
+    port: 8090
 datasources:
   default:
     url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte
@@ -13,7 +15,7 @@ datasources:
     auto-commit: false
     data-source-properties:
       load-balance: true
-      currentSchema: todo
+      currentSchema: mtodo
     username: yugabyte
     password: yugabyte
     minimum-idle: 5
@@ -23,3 +25,5 @@ flyway:
   datasources:
     default:
       baseline-on-migrate: true
+      schemas: mtodo,public
+      init-sql: "set search_path=mtodo,public;"

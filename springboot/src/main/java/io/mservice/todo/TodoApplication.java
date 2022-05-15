@@ -1,14 +1,9 @@
 package io.mservice.todo;
 
 import java.net.URI;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.sql.DataSource;
-
-import com.yugabyte.ysql.YBClusterAwareDataSource;
-import com.zaxxer.hikari.HikariDataSource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springdoc.core.annotations.RouterOperation;
@@ -16,7 +11,6 @@ import org.springdoc.core.annotations.RouterOperations;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Sort;
 import org.springframework.retry.annotation.EnableRetry;
@@ -48,24 +42,11 @@ public class TodoApplication {
 		SpringApplication.run(TodoApplication.class, args);
 	}
 
-	// @Bean
-	public DataSource ybDataSource(DataSourceProperties properties) throws SQLException {
-		YBClusterAwareDataSource wrappedDataSource = properties.initializeDataSourceBuilder()
-				.type(YBClusterAwareDataSource.class).build();
-		wrappedDataSource.setReWriteBatchedInserts(true);
-		wrappedDataSource.setProperty("load-balance", "true");
-		HikariDataSource hikariDataSource = new HikariDataSource();
-		hikariDataSource.setAutoCommit(false);
-		hikariDataSource.setValidationTimeout(1000);
-		hikariDataSource.setDataSource(wrappedDataSource);
-		return hikariDataSource;
-	}
-
 	@Bean
 	public RetryTemplate retryTemplate(TodoRetryPolicy todoRetryPolicy) {
 		RetryTemplate retryTemplate = new RetryTemplate();
 		ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
-		backOffPolicy.setMaxInterval(5000); //10s
+		backOffPolicy.setMaxInterval(5000); // 10s
 		retryTemplate.setRetryPolicy(todoRetryPolicy);
 		retryTemplate.setBackOffPolicy(backOffPolicy);
 		return retryTemplate;

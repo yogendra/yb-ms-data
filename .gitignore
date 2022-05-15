@@ -7,3 +7,4 @@
 */build
 */gradlew*
 */gradle
+/springboot/opentelemetry-javaagent.jar
