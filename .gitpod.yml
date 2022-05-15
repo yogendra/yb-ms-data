@@ -22,11 +22,11 @@ tasks:
   - name: 1c-postgres
     before: |
       sudo install-packages postgresql-12 postgresql-contrib-12
-      sudo su postgres
+      sudo su postgres -c "pg_ctlcluster 12 main start"
+      sudo su postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'postgres';\""
     command: |
-      pg_ctlcluster 12 main start
       gp await-port 5432
-      psql
+      sudo su postgres -c "psql"
   - name: 2a-spring-boot
     env:
       SPRING_PROFILES_ACTIVE: ysql
