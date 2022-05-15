@@ -13,26 +13,26 @@ tasks:
     before: | 
       cd springboot
       gp sync-await jvm-17
-      gradle clean build -x test
+      gradle build -x test
     command: |
       gp await-port 5432
-      java -jar build/libs/*.jar
+      gradle bootRun
   - name: 2b-quarkus
     before: | 
       cd quarkus
       gp sync-await jvm-17
-      gradle clean build -x test
+      gradle quarkusBuild -x test
     command: |
       gp await-port 5432
-      java -jar build/libs/*.jar
+      gradle quarkusDev
   - name: 2c-micronaut
     before: | 
       cd micronaut
       gp sync-await jvm-17
-      gradle clean build -x test
+      gradle build -x test
     command: |
       gp await-port 5432
-      java -jar build/libs/*.jar
+      gradle run
 
 # exposed ports
 ports:
