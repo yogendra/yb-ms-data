@@ -1,33 +1,81 @@
 image: gitpod/workspace-yugabytedb
 
 tasks:
-  - name: app-run
-    before: cd springboot
-    init: >
-      echo y | sdk install java 17.0.3-librca || true &&
+  - name: 1a-yb
+    env:
+      HOST_LB: "127.0.0.1"
+      HOST_LB2: "127.0.0.2"
+      HOST_LB3: "127.0.0.3"
+    before: |
+      mkdir -p ${GITPOD_REPO_ROOT}/ybdb
+      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd1 --listen=$HOST_LB --tserver_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1a" --master_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1a"
+      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd2 --listen=$HOST_LB2 --join=$HOST_LB --tserver_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1b" --master_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1b"
+      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd3 --listen=$HOST_LB3 --join=$HOST_LB --tserver_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1c" --master_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1c"
+      yb-admin -master_addresses $HOST_LB:7100,$HOST_LB2:7100,$HOST_LB3:7100 modify_placement_info ybcloud.ap-south-1.ap-south-1a,ybcloud.ap-south-1.ap-south-1b,ybcloud.ap-south-1.ap-south-1c 3
+    command: |
+      gp await-port 5433
+      ysqlsh
+  - name: 1b-import-deps
+    before: |
+      echo y | sdk install java 17.0.3-librca || true
+      gp sync-done jvm-17
+  - name: 2a-spring-boot
+    before: | 
+      cd springboot
+      gp sync-await jvm-17
       gradle clean build -x test
-    command: java -jar build/libs/*.jar
+    command: |
+      gp await-port 5433
+      java -jar build/libs/*.jar
+  - name: 2b-quarkus
+    before: | 
+      cd quarkus
+      gp sync-await jvm-17
+      gradle clean build -x test
+    command: |
+      gp await-port 5433
+      java -jar build/libs/*.jar
+  - name: 2c-micronaut
+    before: | 
+      cd micronaut
+      gp sync-await jvm-17
+      gradle clean build -x test
+    command: |
+      gp await-port 5433
+      java -jar build/libs/*.jar
 
 # exposed ports
 ports:
   - port: 8080
+    name: spring-boot
+    onOpen: notify
+  - port: 8085
+    name: quarkus
+    onOpen: notify
+  - port: 8090
+    name: micronaut
     onOpen: notify
   - port: 7000
-    onOpen: notify
+    name: yb-master-web
+    onOpen: ignore
   - port: 9000
-    onOpen: notify
-  - port: 37843
+    name: yb-tserver-web
     onOpen: ignore
   - port: 7100
+    name: yb-master-rpc
     onOpen: ignore
   - port: 9100
+    name: yb-tserver-rpc
     onOpen: ignore
   - port: 5433
+    name: ysql
     onOpen: ignore
   - port: 13000
+    name: ysql-api
     onOpen: ignore
   - port: 9042
+    name: ycql
     onOpen: ignore
   - port: 12000
+    name: ycql-api
     onOpen: ignore
-    

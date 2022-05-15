@@ -1,0 +1,50 @@
+image: gitpod/workspace-postgresql
+
+tasks:
+  - name: 1a-postgres
+    command: |
+      gp await-port 5432
+      psql
+  - name: 1b-import-deps
+    before: |
+      echo y | sdk install java 17.0.3-librca || true
+      gp sync-done jvm-17
+  - name: 2a-spring-boot
+    before: | 
+      cd springboot
+      gp sync-await jvm-17
+      gradle clean build -x test
+    command: |
+      gp await-port 5432
+      java -jar build/libs/*.jar
+  - name: 2b-quarkus
+    before: | 
+      cd quarkus
+      gp sync-await jvm-17
+      gradle clean build -x test
+    command: |
+      gp await-port 5432
+      java -jar build/libs/*.jar
+  - name: 2c-micronaut
+    before: | 
+      cd micronaut
+      gp sync-await jvm-17
+      gradle clean build -x test
+    command: |
+      gp await-port 5432
+      java -jar build/libs/*.jar
+
+# exposed ports
+ports:
+  - port: 8080
+    name: spring-boot
+    onOpen: notify
+  - port: 8085
+    name: quarkus
+    onOpen: notify
+  - port: 8090
+    name: micronaut
+    onOpen: notify
+  - port: 5432
+    name: psql
+    onOpen: ignore
