@@ -6,6 +6,7 @@ quarkus:
       initial-size: 5
       max-size: 20
       min-size: 5
+      new-connection-sql: "set search_path=qtodo,public"
       additional-jdbc-properties:
         currentSchema: qtodo
     db-kind: pgsql

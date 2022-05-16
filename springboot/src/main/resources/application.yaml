@@ -17,5 +17,6 @@ spring:
       maximum-pool-size: 20
       auto-commit: false
       keepalive-time: 120000
+      connection-init-sql: "set search_path=stodo,public"
 server:
   port: 8080
