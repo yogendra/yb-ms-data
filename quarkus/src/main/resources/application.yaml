@@ -13,5 +13,7 @@ quarkus:
   flyway:
     default-schema: qtodo
     schemas: qtodo,public
+    migrate-at-start: true
+
   http:
     port: 8085
