@@ -21,4 +21,5 @@ flyway:
   datasources:
     default:
       baseline-on-migrate: true
-      init-sql: "set search_path=mtodo,public;"
+      default-schema: mtodo
+      schemas: mtodo,public
