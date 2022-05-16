@@ -20,6 +20,5 @@ datasources:
 flyway:
   datasources:
     default:
-      baseline-on-migrate: true
       default-schema: mtodo
       schemas: mtodo,public

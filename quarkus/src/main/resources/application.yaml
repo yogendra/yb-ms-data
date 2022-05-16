@@ -11,9 +11,7 @@ quarkus:
         currentSchema: qtodo
     db-kind: pgsql
   flyway:
-    baseline-on-migrate: true
     default-schema: qtodo
     schemas: qtodo,public
-    clean-at-start: true
   http:
     port: 8085

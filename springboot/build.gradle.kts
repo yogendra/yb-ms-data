@@ -1,8 +1,8 @@
 plugins {
-    id("org.springframework.boot") version "2.6.3"
+    id("org.springframework.boot") version "2.6.7"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("java")
-    // id("org.springframework.experimental.aot") version "0.11.2"
+//    id("org.springframework.experimental.aot") version "0.11.5"
 }
 
 group = "io.mservice.boot"
@@ -34,10 +34,10 @@ dependencies {
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+//    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     compileOnly("org.projectlombok:lombok")
-    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+//    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     implementation("org.postgresql:postgresql:42.3.5")
     implementation("com.yugabyte:jdbc-yugabytedb:42.3.4")
 

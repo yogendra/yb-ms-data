@@ -4,7 +4,6 @@ spring:
   flyway:
     default-schema: stodo
     schemas: stodo,public
-    baseline-on-migrate: true
   jpa:
     properties:
       hibernate:

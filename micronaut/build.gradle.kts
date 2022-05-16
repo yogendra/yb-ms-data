@@ -1,6 +1,6 @@
 plugins {
-    id("com.github.johnrengelman.shadow") version "7.1.0"
-    id("io.micronaut.application") version "3.0.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.3.2"
 }
 
 version = "1.0.0"
@@ -42,7 +42,7 @@ application {
     mainClass.set("io.mservice.todo.TodoApplication")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("11")
-    targetCompatibility = JavaVersion.toVersion("11")
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
 }
 
