@@ -16,10 +16,9 @@ datasources:
     minimum-idle: 5
     maximum-pool-size: 20
     keepalive-time: 120000
-    connection-init-sql: "set search_path=mtodo,public"
+    connection-init-sql: "set search_path=mtodo,public;"
 flyway:
   datasources:
     default:
       baseline-on-migrate: true
-      schemas: mtodo,public
       init-sql: "set search_path=mtodo,public;"
