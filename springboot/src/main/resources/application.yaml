@@ -2,9 +2,9 @@ spring:
   application:
     name: yb-boot-data
   flyway:
-    baseline-on-migrate: true
     default-schema: stodo
     schemas: stodo,public
+    baseline-on-migrate: true
   jpa:
     properties:
       hibernate:
