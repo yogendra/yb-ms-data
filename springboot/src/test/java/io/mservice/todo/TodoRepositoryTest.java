@@ -48,8 +48,11 @@ class TodoRepositoryTest {
 	@MockBean
 	private ITodoService todoService;
 
+	@MockBean
+	private TodoRetryPolicy todoRetryPolicy;
+
 	@Container
-	public static YugabyteYSQLContainer container = new YugabyteYSQLContainer("yugabytedb/yugabyte:2.9.1.0-b140")
+	public static YugabyteYSQLContainer container = new YugabyteYSQLContainer("yugabytedb/yugabyte:2.12.3.0-b19")
 			.withDatabaseName("yugabyte").withUsername("yugabyte").withPassword("yugabyte").withReuse(true);
 
 	@DynamicPropertySource

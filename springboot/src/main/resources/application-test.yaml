@@ -2,4 +2,4 @@ spring:
   jpa:
     properties:
       hibernate:
-        default_schema: todo
+        default_schema: stodo
