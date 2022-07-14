@@ -1,17 +1,13 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Spring Boot CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "devx" ]
+    paths:
+      - springboot/**
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "devx" ]
 
 permissions:
   contents: read
@@ -19,7 +15,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
+    steps:    
     - name: init-checkout
       uses: actions/checkout@v3
     - name: init-java
@@ -34,12 +30,4 @@ jobs:
     - name: build-boot
       run: |
         cd springboot
-        gradle build -x test
-    - name: build-quarkus
-      run: |
-        cd quarkus
-        gradle quarkusBuild -x test    
-    - name: build-micronaut
-      run: |
-        cd micronaut
         gradle build -x test
