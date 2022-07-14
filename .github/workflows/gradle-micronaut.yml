@@ -2,10 +2,10 @@
 name: Micronaut CI with Gradle
 
 on:
+  workflow_call:
   push:
-    branches: [ "main", "devx" ]
-    paths:
-      - springboot/**
+    branches:
+    - "**"
   pull_request:
     branches: [ "main", "devx" ]
 
