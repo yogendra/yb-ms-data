@@ -1,4 +1,4 @@
-[![Quarkus CI with Gradle](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-quarkus.yml/badge.svg)](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-quarkus.yml)
+[![Quarkus CI with Gradle](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-quarkus.yml/badge.svg?branch=main)](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-quarkus.yml)
 
 [Quarkus](https://quarkus.io/) is a Kubernetes Native Java stack tailored for OpenJDK HotSpot and GraalVM, crafted from the best of breed Java libraries and standards.
 
