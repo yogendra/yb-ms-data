@@ -1,3 +1,5 @@
+[![Micronaut CI with Gradle](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-micronaut.yml/badge.svg?branch=devx)](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-micronaut.yml)
+
 [Micronaut](https://micronaut.io/) is a modern, jvm-based, full-stack framework for building modular, easily testable microservice and serverless applications.
 
 This describes how to build a simple JPA based web application using Micronaut framework for YSQL API using [Yugabyte JDBC Driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
