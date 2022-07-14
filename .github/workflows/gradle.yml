@@ -33,13 +33,13 @@ jobs:
         gradle-version: current
     - name: build-boot
       run: |
-        - cd springboot
-        - gradle build -x test
+        cd springboot
+        gradle build -x test
     - name: build-quarkus
       run: |
-        - cd quarkus
-        - gradle quarkusBuild -x test    
+        cd quarkus
+        gradle quarkusBuild -x test    
     - name: build-micronaut
       run: |
-        - cd micronaut
-        - gradle build -x test
+        cd micronaut
+        gradle build -x test
