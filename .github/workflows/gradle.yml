@@ -20,27 +20,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: init-checkout
+      uses: actions/checkout@v3
     - name: init-java
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
+    - name: init-gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: current
     - name: build-boot
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: current
-        build-root-directory: springboot
-        arguments: build -x test
+      run: |
+        - cd springboot
+        - gradle build -x test
     - name: build-quarkus
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: current
-        build-root-directory: quarkus
-        arguments: quarkusBuild -x test
+      run: |
+        - cd quarkus
+        - gradle quarkusBuild -x test    
     - name: build-micronaut
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: current
-        build-root-directory: micronaut
-        arguments: build -x test
+      run: |
+        - cd micronaut
+        - gradle build -x test
