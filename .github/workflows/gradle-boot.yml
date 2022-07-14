@@ -2,8 +2,10 @@
 name: Spring Boot CI with Gradle
 
 on:
+  workflow_call:
   push:
-    branches: [ "main", "devx" ]
+    branches:
+    - "**"
     paths:
       - springboot/**
   pull_request:
