@@ -6,6 +6,8 @@ on:
   push:
     branches:
     - "**"
+    paths:
+    - micronaut/**    
   pull_request:
     branches: [ "main", "devx" ]
 
