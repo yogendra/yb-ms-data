@@ -1,3 +1,5 @@
+[![Quarkus CI with Gradle](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-quarkus.yml/badge.svg?branch=devx)](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-quarkus.yml)
+
 [Quarkus](https://quarkus.io/) is a Kubernetes Native Java stack tailored for OpenJDK HotSpot and GraalVM, crafted from the best of breed Java libraries and standards.
 
 This describes how to build a simple JPA based web application using Quarkus framework for YSQL API using [Yugabyte JDBC Driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
