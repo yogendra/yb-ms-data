@@ -1,3 +1,5 @@
+[![Spring Boot CI with Gradle](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-boot.yml/badge.svg)](https://github.com/srinivasa-vasu/yb-ms-data/actions/workflows/gradle-boot.yml)
+
 [Spring Boot](https://spring.io/projects/spring-boot) makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
 
 This describes how to build a simple JPA based web application using Spring Boot framework for YSQL API using [Yugabyte JDBC Driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
