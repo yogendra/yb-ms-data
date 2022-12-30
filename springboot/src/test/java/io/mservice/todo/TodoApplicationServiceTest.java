@@ -1,5 +1,6 @@
 package io.mservice.todo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -24,22 +25,29 @@ class TodoApplicationServiceTest extends AbstractTodoApplicationTest {
 	@MockBean
 	private TodoRetryPolicy todoRetryPolicy;
 
+	private Todo element;
+
+	@BeforeEach
+	void init() {
+		element = Todo.builder().build();
+	}
+
 	@Test
 	void shouldCreateOneRecord() {
-		final var todo = todoService.save(new Todo());
+		final var todo = todoService.save(element);
 		assertThat(todoService.findById(todo.getId()).get()).isEqualTo(todo);
 	}
 
 	@Test
 	void shouldUpdateOneRecord() {
 		String task = "Using test-containers";
-		final var todo = todoService.save(Todo.builder().task(task).build());
+		final var todo = todoService.save(element.setTask(task));
 		assertThat(todoService.findById(todo.getId()).get().getTask()).isEqualTo(task);
 	}
 
 	@Test
 	void shouldDeleteOneRecord() {
-		final var todo = todoService.save(new Todo());
+		final var todo = todoService.save(element);
 		todoService.deleteById(todo.getId());
 		assertThat(todoService.findById(todo.getId()).isEmpty());
 	}

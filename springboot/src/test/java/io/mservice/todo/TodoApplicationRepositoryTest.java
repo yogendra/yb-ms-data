@@ -3,6 +3,7 @@ package io.mservice.todo;
 import javax.sql.DataSource;
 
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -43,6 +44,8 @@ class TodoApplicationRepositoryTest extends AbstractTodoApplicationTest {
 	@Autowired
 	private ITodoRepository todoRepository;
 
+	private Todo element;
+
 	@Test
 	void injectedComponentsAreNotNull() {
 		assertThat(dataSource).isNotNull();
@@ -50,14 +53,14 @@ class TodoApplicationRepositoryTest extends AbstractTodoApplicationTest {
 		assertThat(todoRepository).isNotNull();
 	}
 
-	// @BeforeEach
+	@BeforeEach
 	void init() {
-		todoRepository.deleteAll();
+		element = Todo.builder().build();
 	}
 
 	@Test
 	void shouldCreateOneRecord() {
-		final var todo = todoRepository.save(new Todo());
+		final var todo = todoRepository.save(element);
 		assertThat(todoRepository.findById(todo.getId()).get()).isEqualTo(todo);
 	}
 
@@ -69,13 +72,13 @@ class TodoApplicationRepositoryTest extends AbstractTodoApplicationTest {
 	@Test
 	void shouldUpdateOneRecord() {
 		String task = "Using test-containers";
-		final var todo = todoRepository.save(Todo.builder().task(task).build());
+		final var todo = todoRepository.save(element.setTask(task));
 		assertThat(todoRepository.findById(todo.getId()).get().getTask()).isEqualTo(task);
 	}
 
 	@Test
 	void shouldDeleteOneRecord() {
-		final var todo = todoRepository.save(new Todo());
+		final var todo = todoRepository.save(element);
 		todoRepository.delete(todo);
 		assertThat(todoRepository.findById(todo.getId()).isEmpty());
 	}
