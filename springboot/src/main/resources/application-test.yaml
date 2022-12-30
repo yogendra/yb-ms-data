@@ -1,5 +1,10 @@
 spring:
+  flyway:
+    clean-disabled: false
   jpa:
-    properties:
-      hibernate:
-        default_schema: stodo
+    hibernate:
+      ddl-auto: validate
+#  datasource:
+#    url: jdbc:tc:yugabyte:2.14.4.0-b26:///yugabyte
+#    username: yugabyte
+#    password: yugabyte

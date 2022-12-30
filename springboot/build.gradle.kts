@@ -1,8 +1,11 @@
+
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+
 plugins {
-    id("org.springframework.boot") version "2.6.7"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("org.springframework.boot") version "3.0.0"
+    id("io.spring.dependency-management") version "1.1.0"
     id("java")
-//    id("org.springframework.experimental.aot") version "0.11.5"
+    id("org.graalvm.buildtools.native") version "0.9.18"
 }
 
 group = "io.mservice.boot"
@@ -12,6 +15,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+extra["testcontainersVersion"] = "1.17.6"
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
@@ -20,6 +25,7 @@ configurations {
 
 repositories {
     maven { url = uri("https://repo.spring.io/release") }
+    maven { url = uri("https://repo.spring.io/milestone") }
     mavenCentral()
     mavenLocal()
 }
@@ -27,33 +33,38 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.flywaydb:flyway-core")
     implementation("org.springdoc:springdoc-openapi-ui:1.5.9")
     implementation("org.springframework.retry:spring-retry")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
+    implementation("org.postgresql:postgresql:42.5.1")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
-//    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     compileOnly("org.projectlombok:lombok")
-//    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-    implementation("org.postgresql:postgresql:42.3.5")
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.4")
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0")
-    testImplementation("com.yugabyte:testcontainers-yugabytedb:1.0.0-beta-4")
-    testImplementation("org.testcontainers:junit-jupiter:1.15.3")
+    testImplementation("org.testcontainers:yugabytedb")
+    testImplementation("org.testcontainers:junit-jupiter")
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
+    }
+}
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.bootBuildImage {
-    imageName = "humourmind/${project.name}:${project.version}"
-    pullPolicy = org.springframework.boot.buildpack.platform.build.PullPolicy.IF_NOT_PRESENT
+tasks.named<BootBuildImage>("bootBuildImage") {
+    imageName.set("humourmind/${project.name}:${project.version}")
+    pullPolicy.set(org.springframework.boot.buildpack.platform.build.PullPolicy.IF_NOT_PRESENT)
 }
-
