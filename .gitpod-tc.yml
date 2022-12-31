@@ -8,7 +8,7 @@ tasks:
   - name: 2a-spring-boot
     env:
       SPRING_PROFILES_ACTIVE: test
-    before: |
+    before: | 
       cd springboot
       gp sync-await jvm-17
       gradle test
