@@ -11,6 +11,5 @@ tasks:
     before: | 
       cd springboot
       gp sync-await jvm-17
-      gradle test
     command: |
       gradle test
