@@ -2,14 +2,15 @@ image: gitpod/workspace-yugabytedb
 
 tasks:
   - name: 1a-import-deps
-    before: |
+    init: |
       echo y | sdk install java 17.0.3-librca || true
       gp sync-done jvm-17
   - name: 2a-spring-boot
     env:
       SPRING_PROFILES_ACTIVE: test
-    before: |
+    before:
       cd springboot
+    init: |
       gp sync-await jvm-17
       gradle assemble
     command: |
