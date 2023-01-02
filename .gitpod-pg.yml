@@ -3,7 +3,7 @@ image: gitpod/workspace-postgresql
 tasks:
   - name: 1a-postgres
     command: |
-      gp await-port 5432
+      gp ports await 5432
       psql
   - name: 1b-import-deps
     before: |
@@ -15,7 +15,7 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp await-port 5432
+      gp ports await 5432
       gradle bootRun
   - name: 2b-quarkus
     before: | 
@@ -23,7 +23,7 @@ tasks:
       gp sync-await jvm-17
       gradle quarkusBuild -x test
     command: |
-      gp await-port 5432
+      gp ports await 5432
       gradle quarkusDev
   - name: 2c-micronaut
     before: | 
@@ -31,7 +31,7 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp await-port 5432
+      gp ports await 5432
       gradle run
 
 # exposed ports

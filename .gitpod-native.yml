@@ -8,7 +8,7 @@ tasks:
       mkdir -p ${GITPOD_REPO_ROOT}/ybdb
       yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb --listen=$HOST_LB
     command: |
-      gp await-port 5433
+      gp ports await 5433
       ysqlsh
   - name: 1b-jvm-native
     init: |

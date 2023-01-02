@@ -13,7 +13,7 @@ tasks:
       yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd3 --listen=$HOST_LB3 --join=$HOST_LB --tserver_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1c" --master_flags="placement_cloud=ybcloud,placement_region=ap-south-1,placement_zone=ap-south-1c"
       yb-admin -master_addresses $HOST_LB:7100,$HOST_LB2:7100,$HOST_LB3:7100 modify_placement_info ybcloud.ap-south-1.ap-south-1a,ybcloud.ap-south-1.ap-south-1b,ybcloud.ap-south-1.ap-south-1c 3
     command: |
-      gp await-port 5433
+      gp ports await 5433
       ysqlsh
   - name: 1b-import-deps
     before: |
@@ -25,7 +25,7 @@ tasks:
       sudo su postgres -c "pg_ctlcluster 12 main start"
       sudo su postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'postgres';\""
     command: |
-      gp await-port 5432
+      gp ports await 5432
       sudo su postgres -c "psql"
   - name: 2a-spring-boot
     env:
@@ -35,7 +35,7 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp await-port 5433 && gp await-port 5432
+      gp ports await 5433 && gp ports await 5432
       gradle bootRun --args='--spring.profiles.active=psql'
   - name: 2b-quarkus
     env:
@@ -45,7 +45,7 @@ tasks:
       gp sync-await jvm-17
       gradle quarkusBuild -x test
     command: |
-      gp await-port 5433 && gp await-port 5432
+      gp ports await 5433 && gp ports await 5432
       gradle -Dquarkus.profile=psql quarkusDev
   - name: 2c-micronaut
     env:
@@ -55,7 +55,7 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp await-port 5433 && gp await-port 5432
+      gp ports await 5433 && gp ports await 5432
       MICRONAUT_ENVIRONMENTS=psql gradle run
 
 # exposed ports
