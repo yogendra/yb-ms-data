@@ -1,17 +1,24 @@
 package io.mservice.todo;
 
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.yugabyte.PGProperty;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.postgresql.util.PGobject;
 import org.springdoc.core.annotations.RouterOperation;
 import org.springdoc.core.annotations.RouterOperations;
 
+import org.springframework.aot.hint.MemberCategory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.data.domain.Sort;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
@@ -36,6 +43,7 @@ import static org.springframework.web.servlet.function.ServerResponse.status;
 
 @SpringBootApplication(proxyBeanMethods = false)
 @EnableRetry
+@ImportRuntimeHints(TodoApplication.TodoRuntimeHints.class)
 public class TodoApplication {
 
 	public static void main(String[] args) {
@@ -90,6 +98,19 @@ public class TodoApplication {
 						.body(retryTemplate
 								.execute(context -> todoService.findAllBySort(Sort.by(Sort.Direction.DESC, "id"))))))
 				.build();
+	}
+
+	static class TodoRuntimeHints implements RuntimeHintsRegistrar {
+
+		@Override
+		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+			for (Field element : PGProperty.class.getDeclaredFields()) {
+				hints.reflection().registerField(element);
+			}
+			hints.reflection().registerType(PGobject.class, MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
+					MemberCategory.INTROSPECT_PUBLIC_METHODS);
+		}
+
 	}
 
 }

@@ -1,7 +1,7 @@
 spring:
   datasource:
 #    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte?load-balance=true&topology-keys=ybcloud.ap-south-1.ap-south-1a
-    url: jdbc:yugabytedb://127.0.0.1:5433/yugabyte?load-balance=true
+    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte?load-balance=true
     driver-class-name: com.yugabyte.Driver
 #    url: jdbc:postgresql://127.0.0.1:5433/yugabyte
 #    driver-class-name: org.postgresql.Driver

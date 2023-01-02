@@ -17,7 +17,7 @@ tasks:
       ysqlsh
   - name: 1b-import-deps
     before: |
-      echo y | sdk install java 17.0.3-librca || true
+      echo y | sdk install java 17.0.5-librca || true
       gp sync-done jvm-17
   - name: 1c-postgres
     before: |

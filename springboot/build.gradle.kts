@@ -2,7 +2,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-    id("org.springframework.boot") version "3.0.0"
+    id("org.springframework.boot") version "3.0.1"
     id("io.spring.dependency-management") version "1.1.0"
     id("java")
     id("org.graalvm.buildtools.native") version "0.9.18"
@@ -36,7 +36,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.flywaydb:flyway-core")
-    implementation("org.springdoc:springdoc-openapi-ui:1.5.9")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
     implementation("org.springframework.retry:spring-retry")
     implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
     implementation("org.postgresql:postgresql:42.5.1")

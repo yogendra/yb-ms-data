@@ -18,7 +18,7 @@ tasks:
   - name: 2a-spring-boot
     before:
       cd springboot
-    init: |
+    init: | 
       gp sync-await jvm-17
       sdk use java 22.3.r19-grl
       gradle nativeCompile
