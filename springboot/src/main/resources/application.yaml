@@ -10,6 +10,9 @@ spring:
         connection:
           provider_disables_autocommit: true
         default_schema: stodo
+        hbm2ddl:
+          extra_physical_table_types: "PARTITIONED TABLE"
+          auto: validate
     open-in-view: false
   datasource:
     hikari:

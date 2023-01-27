@@ -15,6 +15,7 @@ import org.springdoc.core.annotations.RouterOperations;
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.aot.hint.TypeReference;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -104,11 +105,13 @@ public class TodoApplication {
 
 		@Override
 		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-			for (Field element : PGProperty.class.getDeclaredFields()) {
-				hints.reflection().registerField(element);
+			for (Field field : PGProperty.class.getDeclaredFields()) {
+				hints.reflection().registerTypeIfPresent(classLoader,
+						TypeReference.of(field.getDeclaringClass()).getCanonicalName(),
+						typeHint -> typeHint.withField(field.getName()));
 			}
-			hints.reflection().registerType(PGobject.class, MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
-					MemberCategory.INTROSPECT_PUBLIC_METHODS);
+			hints.reflection().registerTypeIfPresent(classLoader, PGobject.class.getCanonicalName(),
+					MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, MemberCategory.INTROSPECT_PUBLIC_METHODS);
 		}
 
 	}

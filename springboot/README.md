@@ -7,7 +7,7 @@ This describes how to build a simple JPA based web application using Spring Boot
 ## Prerequisites
 
 - Follow [YB Quick start](https://docs.yugabyte.com/latest/quick-start/) instructions to run a local YugabyteDB cluster. Test YugabyteDB's YSQL API, as [documented](../../quick-start/explore/ysql/) so that you can confirm that you have YSQL service running on `localhost:5433`.
-- You will need JDK 11 or above. You can use [SDKMAN](https://sdkman.io/install) to install the JDK runtime.
+- You will need JDK 17 or later. You can use [SDKMAN](https://sdkman.io/install) to install the JDK runtime.
 
 ## Get Started
 
@@ -21,30 +21,29 @@ git clone https://github.com/srinivasa-vasu/yb-ms-data.git
 
 This project depends on the following libraries.
 ```gradle
-implementation("org.springframework.boot:spring-boot-starter-web")
-implementation("org.springframework.boot:spring-boot-starter-actuator")
-implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-implementation("org.flywaydb:flyway-core")
-implementation("org.springdoc:springdoc-openapi-ui:1.5.9")
-implementation("com.yugabyte:spring-data-yugabytedb-ysql:2.3.0") {
-    exclude(module = "jdbc-yugabytedb")
-}
-implementation("org.springframework.retry:spring-retry")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+    implementation("org.springframework.retry:spring-retry")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
+    implementation("org.postgresql:postgresql:42.5.1")
 
-annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-annotationProcessor("org.projectlombok:lombok")
-developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.projectlombok:lombok")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
-compileOnly("org.projectlombok:lombok")
-runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-implementation("com.yugabyte:jdbc-yugabytedb:42.3.0")
+    compileOnly("org.projectlombok:lombok")
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
-testImplementation("org.springframework.boot:spring-boot-starter-test")
-testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0")
-testImplementation("com.yugabyte:testcontainers-yugabytedb:1.0.0-beta-4")
-testImplementation("org.testcontainers:junit-jupiter:1.15.3")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:7.0.0")
+    testImplementation("org.testcontainers:yugabytedb")
+    testImplementation("org.testcontainers:junit-jupiter")
 ```
-Update the driver dependency library **("com.yugabyte:jdbc-yugabytedb:42.3.0")** to the latest version. Grab the latest version from [Yugabyte JDBC driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
+Update the driver dependency library **("com.yugabyte:jdbc-yugabytedb")** to the latest version. Grab the latest version from [Yugabyte JDBC driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
 
 ## Driver Configuration
 
