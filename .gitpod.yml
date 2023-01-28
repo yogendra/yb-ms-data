@@ -6,7 +6,7 @@ tasks:
       HOST_LB: "127.0.0.1"
     before: |
       mkdir -p ${GITPOD_REPO_ROOT}/ybdb
-      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb --listen=$HOST_LB
+      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb --advertise_address=$HOST_LB
     command: |
       gp ports await 5433
       ysqlsh
