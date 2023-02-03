@@ -1,21 +1,27 @@
 image: gitpod/workspace-yugabytedb
 
+github:
+  prebuilds:
+    branches: true
+    master: false
+
 tasks:
   - name: 1a-ybdb
     env:
       HOST_LB: "127.0.0.1"
-    before: |
+    command: |
       mkdir -p ${GITPOD_REPO_ROOT}/ybdb
       yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb --advertise_address=$HOST_LB
+  - name: 1b-ysqlsh
     command: |
       gp ports await 5433
       ysqlsh
-  - name: 1b-jvm-native
+  - name: 2a-jvm-native
     init: |
       echo y | sdk install java 17.0.5-librca || true
       echo y | sdk install java 22.3.r19-grl || true
       gp sync-done jvm-17
-  - name: 2a-spring-boot
+  - name: 2b-spring-boot
     before:
       cd springboot
     init: |

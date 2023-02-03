@@ -1,33 +1,36 @@
 image: gitpod/workspace-postgresql
 
 tasks:
-  - name: 1a-postgres
+  - name: 1a-psql
     command: |
       gp ports await 5432
       psql
-  - name: 1b-import-deps
-    before: |
+  - name: 2a-install-jvm
+    init: |
       echo y | sdk install java 17.0.5-librca || true
       gp sync-done jvm-17
-  - name: 2a-spring-boot
-    before: | 
+  - name: 2b-spring-boot
+    before:
       cd springboot
+    init: |
       gp sync-await jvm-17
       gradle build -x test
     command: |
       gp ports await 5432
       gradle bootRun
-  - name: 2b-quarkus
-    before: | 
+  - name: 2c-quarkus
+    before:
       cd quarkus
+    init: |
       gp sync-await jvm-17
       gradle quarkusBuild -x test
     command: |
       gp ports await 5432
       gradle quarkusDev
-  - name: 2c-micronaut
-    before: | 
+  - name: 2d-micronaut
+    before:
       cd micronaut
+    init: |
       gp sync-await jvm-17
       gradle build -x test
     command: |
