@@ -95,3 +95,8 @@ To run & test the app:
 ```sh
 gradle bootRun
 ```
+
+To run the app with `ysql` profile:
+```sh
+gradle -Dspring.profiles.active=ysql bootRun
+```

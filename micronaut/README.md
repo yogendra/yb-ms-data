@@ -83,3 +83,8 @@ To run & test the app:
 ```sh
 gradle run
 ```
+
+To run the app with `ysql` profile:
+```sh
+gradle -Dmicronaut.environments=ysql run
+```

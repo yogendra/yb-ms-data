@@ -77,3 +77,8 @@ To run & test the app:
 ```sh
 gradle quarkusDev
 ```
+
+To run the app with `ysql` profile:
+```sh
+gradle -Dquarkus.profile=ysql quarkusDev
+```
