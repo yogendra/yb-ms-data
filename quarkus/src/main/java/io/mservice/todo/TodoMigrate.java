@@ -1,7 +1,5 @@
 package io.mservice.todo;
 
-import jakarta.enterprise.event.Observes;
-
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.runtime.StartupEvent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -19,7 +17,7 @@ public class TodoMigrate {
 	@ConfigProperty(name = "todo.flyway.migrate", defaultValue = "true")
 	boolean runMigration;
 
-	public void runFlywayMigration(@Observes StartupEvent event) {
+	public void runFlywayMigration(/*@Observes*/ StartupEvent event) {
 		if (runMigration) {
 			Flyway.configure().dataSource(dataSource).load().migrate();
 		}

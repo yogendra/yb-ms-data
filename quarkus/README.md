@@ -87,7 +87,7 @@ To run the app with `ysql` profile:
 gradle -Dquarkus.profile=ysql quarkusDev
 ```
 
-## Native build and run (GraalVM: 22.3.r19-grl)
+## Native build and run (GraalVM: 20.0.1-graalce)
 
 Navigate to `yb-ms-data/quarkus` folder in the project:
 
@@ -95,7 +95,7 @@ Navigate to `yb-ms-data/quarkus` folder in the project:
 cd yb-ms-data/quarkus
 ```
 
-To build the app:
+To build the app with `ysql` profile:
 
 ```sh
 gradle -Dquarkus.profile=ysql -Dquarkus.package.type=native build 
