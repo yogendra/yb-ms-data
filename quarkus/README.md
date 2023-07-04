@@ -56,7 +56,7 @@ quarkus:
 
 Update the JDBC url with the appropriate `hostname` and `port` number details `jdbc:yugabytedb://[hostname:port]/yugabyte` in the application.yaml file. Remember to remove the square brackets. It is just a place holder to indicate the fields that need user inputs.
 
-## Build the app
+## Normal build and run
 
 Navigate to `yb-ms-data/quarkus` folder in the project:
 
@@ -70,7 +70,11 @@ To build the app:
 gradle quarkusBuild
 ```
 
-## Run the app
+To build the app with `ysql` profile:
+
+```sh
+gradle -Dquarkus.profile=ysql quarkusBuild
+```
 
 To run & test the app:
 
@@ -81,4 +85,23 @@ gradle quarkusDev
 To run the app with `ysql` profile:
 ```sh
 gradle -Dquarkus.profile=ysql quarkusDev
+```
+
+## Native build and run (GraalVM: 22.3.r19-grl)
+
+Navigate to `yb-ms-data/quarkus` folder in the project:
+
+```sh
+cd yb-ms-data/quarkus
+```
+
+To build the app:
+
+```sh
+gradle -Dquarkus.profile=ysql -Dquarkus.package.type=native build 
+```
+
+To run the app with `ysql` profile:
+```sh
+ ./build/yb-quarkus-data-1.0.0-runner -Dquarkus.profile=ysql
 ```

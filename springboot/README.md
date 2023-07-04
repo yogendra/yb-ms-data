@@ -74,7 +74,7 @@ spring:
 
 Update the JDBC url with the appropriate `hostname` and `port` number details `jdbc:yugabytedb://[hostname:port]/yugabyte` in the application.yaml file. Remember to remove the square brackets. It is just a place holder to indicate the fields that need user inputs.
 
-## Build the app
+## Normal build and run
 
 Navigate to `yb-ms-data/springboot` folder in the project:
 
@@ -88,8 +88,6 @@ To build the app:
 gradle build
 ```
 
-## Run the app
-
 To run & test the app:
 
 ```sh
@@ -97,6 +95,27 @@ gradle bootRun
 ```
 
 To run the app with `ysql` profile:
+
 ```sh
 gradle -Dspring.profiles.active=ysql bootRun
+```
+
+## Native build and run (GraalVM: 22.3.r19-grl)
+
+Navigate to `yb-ms-data/springboot` folder in the project:
+
+```sh
+cd yb-ms-data/springboot
+```
+
+To build the app:
+
+```sh
+gradle nativeCompile
+```
+
+To run the app with `ysql` profile:
+
+```sh
+./build/native/nativeCompile/yb-boot-data -Dspring.profiles.active=ysql
 ```
