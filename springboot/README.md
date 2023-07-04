@@ -100,7 +100,7 @@ To run the app with `ysql` profile:
 gradle -Dspring.profiles.active=ysql bootRun
 ```
 
-## Native build and run (GraalVM: 22.3.r19-grl)
+## Native build and run (GraalVM: 20.0.1-graalce)
 
 Navigate to `yb-ms-data/springboot` folder in the project:
 

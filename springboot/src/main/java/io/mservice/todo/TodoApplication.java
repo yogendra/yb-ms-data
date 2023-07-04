@@ -1,13 +1,14 @@
 package io.mservice.todo;
 
-import java.lang.reflect.Field;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
 import com.yugabyte.PGProperty;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.hibernate.boot.model.relational.ColumnOrderingStrategyStandard;
 import org.postgresql.util.PGobject;
 import org.springdoc.core.annotations.RouterOperation;
 import org.springdoc.core.annotations.RouterOperations;
@@ -103,15 +104,22 @@ public class TodoApplication {
 
 	static class TodoRuntimeHints implements RuntimeHintsRegistrar {
 
+		private static final String[] REFLECTION_CLS_NAME = {
+				"org.springframework.core.annotation.TypeMappedAnnotation[]", "java.util.UUID[]" };
+
+		private static final Class<?>[] REFLECTION_CLS = { PGobject.class, ColumnOrderingStrategyStandard.class };
+
 		@Override
-		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-			for (Field field : PGProperty.class.getDeclaredFields()) {
-				hints.reflection().registerTypeIfPresent(classLoader,
-						TypeReference.of(field.getDeclaringClass()).getCanonicalName(),
-						typeHint -> typeHint.withField(field.getName()));
-			}
-			hints.reflection().registerTypeIfPresent(classLoader, PGobject.class.getCanonicalName(),
-					MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, MemberCategory.INTROSPECT_PUBLIC_METHODS);
+		public void registerHints(final RuntimeHints hints, final ClassLoader classLoader) {
+			Arrays.stream(PGProperty.class.getDeclaredFields())
+					.forEach(field -> hints.reflection().registerTypeIfPresent(classLoader,
+							TypeReference.of(field.getDeclaringClass()).getCanonicalName(),
+							typeHint -> typeHint.withField(field.getName())));
+			Arrays.stream(REFLECTION_CLS)
+					.forEach(cls -> hints.reflection().registerTypeIfPresent(classLoader, cls.getCanonicalName(),
+							MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, MemberCategory.INTROSPECT_PUBLIC_METHODS));
+			Arrays.stream(REFLECTION_CLS_NAME).forEach(name -> hints.reflection().registerType(TypeReference.of(name),
+					MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
 		}
 
 	}
