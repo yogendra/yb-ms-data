@@ -1,0 +1,7 @@
+datasources:
+  default:
+    url: jdbc:yugabytedb://127.0.0.1:5433/yugabyte
+    driverClassName: com.yugabyte.Driver
+    data-source-properties:
+      load-balance: true
+    username: yugabyte

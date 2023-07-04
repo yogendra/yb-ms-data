@@ -2,28 +2,28 @@ package io.mservice.todo;
 
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import lombok.experimental.Accessors;
 
 @Entity
 @Table(name = "todo")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
+@Accessors(chain = true)
 public class Todo {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Type(type = "pg-uuid")
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
 	private String task;

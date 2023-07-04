@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:yugabytedb://127.0.0.1:5433/yugabyte?load-balance=true
+    driver-class-name: com.yugabyte.Driver
+    username: yugabyte

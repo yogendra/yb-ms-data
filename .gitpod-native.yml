@@ -1,10 +1,5 @@
 image: gitpod/workspace-yugabytedb
 
-github:
-  prebuilds:
-    branches: true
-    master: false
-
 tasks:
   - name: 1a-ybdb
     env:

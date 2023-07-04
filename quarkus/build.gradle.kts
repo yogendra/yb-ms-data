@@ -22,7 +22,8 @@ dependencies {
     implementation("io.quarkus:quarkus-agroal")
     implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
 
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.3")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
+    implementation("org.postgresql:postgresql:42.5.1")
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
@@ -32,8 +33,8 @@ group = "io.mservice.quarkus"
 version = "1.0.0"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks.withType<JavaCompile> {

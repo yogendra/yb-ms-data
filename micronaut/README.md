@@ -34,9 +34,9 @@ implementation("io.swagger.core.v3:swagger-annotations")
 implementation("javax.annotation:javax.annotation-api")
 runtimeOnly("ch.qos.logback:logback-classic")
 implementation("io.micronaut:micronaut-validation")
-implementation("com.yugabyte:jdbc-yugabytedb:42.3.0")
+implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
 ```
-Update the driver dependency library **("com.yugabyte:jdbc-yugabytedb:42.3.0")** to the latest version. Grab the latest version from [Yugabyte JDBC driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
+Update the driver dependency library **("com.yugabyte:jdbc-yugabytedb")** to the latest version. Grab the latest version from [Yugabyte JDBC driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
 
 ## Driver Configuration
 

@@ -10,20 +10,15 @@ micronaut:
     port: 8090
 datasources:
   default:
-    url: jdbc:yugabytedb://127.0.0.2:5433/yugabyte
-    driverClassName: com.yugabyte.Driver
     auto-commit: false
     data-source-properties:
-      load-balance: true
       currentSchema: mtodo
-    username: yugabyte
-    password: yugabyte
     minimum-idle: 5
     maximum-pool-size: 20
     keepalive-time: 120000
+    connection-init-sql: "set search_path=mtodo,public;"
 flyway:
   datasources:
     default:
-      baseline-on-migrate: true
+      default-schema: mtodo
       schemas: mtodo,public
-      init-sql: "set search_path=mtodo,public;"

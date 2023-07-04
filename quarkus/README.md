@@ -28,9 +28,9 @@ implementation("io.quarkus:quarkus-resteasy-jackson")
 implementation("io.quarkus:quarkus-config-yaml")
 implementation("io.quarkus:quarkus-agroal")
 implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
-implementation("com.yugabyte:jdbc-yugabytedb:42.3.0")
+implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
 ```
-Update the driver dependency library **("com.yugabyte:jdbc-yugabytedb:42.3.0")** to the latest version. Grab the latest version from [Yugabyte JDBC driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
+Update the driver dependency library **("com.yugabyte:jdbc-yugabytedb")** to the latest version. Grab the latest version from [Yugabyte JDBC driver](https://docs.yugabyte.com/latest/integrations/jdbc-driver/).
 
 ## Driver Configuration
 

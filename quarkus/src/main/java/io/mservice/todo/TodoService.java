@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class TodoService implements ITodoService {
@@ -44,7 +44,7 @@ public class TodoService implements ITodoService {
 	@Transactional
 	public boolean deleteById(UUID id) {
 		Optional<Todo> todo = Optional.ofNullable(findById(id));
-		todo.ifPresent(t -> entityManager.remove(t));
+		todo.ifPresent(entityManager::remove);
 		return todo.isPresent();
 	}
 
