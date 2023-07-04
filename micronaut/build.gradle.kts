@@ -1,6 +1,6 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.micronaut.application") version "3.3.2"
+    id("io.micronaut.application") version "3.7.10"
 }
 
 version = "1.0.0"
@@ -30,11 +30,10 @@ dependencies {
     implementation("io.micronaut.flyway:micronaut-flyway")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.swagger.core.v3:swagger-annotations")
-    implementation("javax.annotation:javax.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
-    implementation("org.postgresql:postgresql:42.3.5")
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.3")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
+    implementation("org.postgresql:postgresql:42.5.1")
 }
 
 

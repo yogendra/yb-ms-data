@@ -1,6 +1,6 @@
 package io.mservice.todo;
 
-import javax.enterprise.event.Observes;
+import jakarta.enterprise.event.Observes;
 
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.runtime.StartupEvent;
