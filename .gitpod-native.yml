@@ -9,19 +9,51 @@ tasks:
       yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb --advertise_address=$HOST_LB
   - name: 1b-ysqlsh
     command: |
-      gp ports await 5433
+      gp await-port 5433
+      sleep 5
       ysqlsh
   - name: 2a-jvm-native
+    env:
+      JAVA_VERSION: 17.0.7-librca
+      JAVA_NATIVE_VERSION: 20.0.1-graalce
     init: |
-      echo y | sdk install java 17.0.5-librca || true
-      echo y | sdk install java 22.3.r19-grl || true
+      echo y | sdk install java $JAVA_VERSION || true
+      echo y | sdk install java $JAVA_NATIVE_VERSION || true
       gp sync-done jvm-17
   - name: 2b-spring-boot
+    env:
+      SPRING_PROFILES_ACTIVE: ysql
     before:
       cd springboot
     init: |
       gp sync-await jvm-17
-      sdk use java 22.3.r19-grl
+      sdk use java $JAVA_NATIVE_VERSION
       gradle nativeCompile
     command: |
-      ./build/native/nativeCompile/yb-boot-data -Dspring.profiles.active=ysql
+      ./build/native/nativeCompile/yb-boot-data
+  - name: 2c-quarkus
+    env:
+      QUARKUS_PROFILE: ysql
+      QUARKUS_PACKAGE_TYPE: native
+    before:
+      cd quarkus
+    init: |
+      gp sync-await jvm-17
+      sdk use java $JAVA_NATIVE_VERSION
+#      gradle -Dquarkus.profile=ysql -Dquarkus.package.type=native quarkusBuild
+      gradle quarkusBuild -x test
+    command: |
+      gp await-port 5433
+      ./build/yb-quarkus-data-1.0.0-runner
+  - name: 2d-micronaut
+    env:
+      MICRONAUT_ENVIRONMENTS: ysql
+    before:
+      cd micronaut
+    init: |
+      gp sync-await jvm-17
+      sdk use java $JAVA_NATIVE_VERSION
+      gradle nativeCompile -x test
+    command: |
+      gp await-port 5433
+      ./build/native/nativeCompile/yb-micronaut-data

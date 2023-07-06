@@ -14,23 +14,17 @@ tasks:
       yugabyted configure --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd1 --fault_tolerance=zone
   - name: 1b-ysqlsh
     command: |
-      gp ports await 5433
+      gp await-port 5433 && sleep 5
       ysqlsh
-  - name: 2a-install-postgres
-    init:
-      sudo install-packages postgresql-12 postgresql-contrib-12
-    command: |
-      sudo su postgres -c "pg_ctlcluster 12 main start"
-      sudo su postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'postgres';\""
-  - name: 2b-psql
-    command: |
-      gp ports await 5432
-      sudo su postgres -c "psql"
-  - name: 3a-install-jvm
+  - name: 2a-install-jvm
+    env:
+      JAVA_VERSION: 17.0.7-librca
+      JAVA_NATIVE_VERSION: 20.0.1-graalce
     init: |
-      echo y | sdk install java 17.0.5-librca || true
+      echo y | sdk install java $JAVA_VERSION || true
+      echo y | sdk install java $JAVA_NATIVE_VERSION || true
       gp sync-done jvm-17
-  - name: 3b-spring-boot
+  - name: 2b-spring-boot
     env:
       SPRING_PROFILES_ACTIVE: ysql
     before:
@@ -39,9 +33,9 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp ports await 5433 && gp ports await 5432
-      gradle bootRun --args='--spring.profiles.active=psql'
-  - name: 3c-quarkus
+      gp await-port 5433
+      gradle bootRun
+  - name: 2c-quarkus
     env:
       QUARKUS_PROFILE: ysql
     before:
@@ -50,9 +44,9 @@ tasks:
       gp sync-await jvm-17
       gradle quarkusBuild -x test
     command: |
-      gp ports await 5433 && gp ports await 5432
-      gradle -Dquarkus.profile=psql quarkusDev
-  - name: 3d-micronaut
+      gp await-port 5433
+      gradle quarkusDev
+  - name: 2d-micronaut
     env:
       MICRONAUT_ENVIRONMENTS: ysql
     before:
@@ -61,8 +55,8 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp ports await 5433 && gp ports await 5432
-      MICRONAUT_ENVIRONMENTS=psql gradle run
+      gp await-port 5433
+      gradle run
 
 # exposed ports
 ports:

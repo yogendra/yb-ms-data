@@ -3,38 +3,46 @@ image: gitpod/workspace-postgresql
 tasks:
   - name: 1a-psql
     command: |
-      gp ports await 5432
+      gp await-port 5432
       psql
   - name: 2a-install-jvm
+    env:
+      JAVA_VERSION: 17.0.7-librca
     init: |
-      echo y | sdk install java 17.0.5-librca || true
+      echo y | sdk install java $JAVA_VERSION || true
       gp sync-done jvm-17
   - name: 2b-spring-boot
+    env:
+      SPRING_PROFILES_ACTIVE: psql
     before:
       cd springboot
     init: |
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp ports await 5432
+      gp await-port 5432
       gradle bootRun
   - name: 2c-quarkus
+    env:
+      QUARKUS_PROFILE: psql
     before:
       cd quarkus
     init: |
       gp sync-await jvm-17
       gradle quarkusBuild -x test
     command: |
-      gp ports await 5432
+      gp await-port 5432
       gradle quarkusDev
   - name: 2d-micronaut
+    env:
+      MICRONAUT_ENVIRONMENTS: ysql
     before:
       cd micronaut
     init: |
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp ports await 5432
+      gp await-port 5432
       gradle run
 
 # exposed ports
