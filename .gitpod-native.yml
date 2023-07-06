@@ -23,6 +23,7 @@ tasks:
   - name: 2b-spring-boot
     env:
       SPRING_PROFILES_ACTIVE: ysql
+      JAVA_NATIVE_VERSION: 20.0.1-graalce
     before:
       cd springboot
     init: |
@@ -35,6 +36,7 @@ tasks:
     env:
       QUARKUS_PROFILE: ysql
       QUARKUS_PACKAGE_TYPE: native
+      JAVA_NATIVE_VERSION: 20.0.1-graalce
     before:
       cd quarkus
     init: |
@@ -48,6 +50,7 @@ tasks:
   - name: 2d-micronaut
     env:
       MICRONAUT_ENVIRONMENTS: ysql
+      JAVA_NATIVE_VERSION: 20.0.1-graalce
     before:
       cd micronaut
     init: |
