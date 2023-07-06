@@ -2,8 +2,10 @@ image: gitpod/workspace-yugabytedb
 
 tasks:
   - name: 1a-import-deps
+    env:
+      JAVA_VERSION: 17.0.7-librca
     init: |
-      echo y | sdk install java 17.0.5-librca || true
+      echo y | sdk install java $JAVA_VERSION || true
       gp sync-done jvm-17
   - name: 2a-spring-boot
     env:
