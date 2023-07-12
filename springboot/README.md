@@ -14,7 +14,7 @@ This describes how to build a simple JPA based web application using Spring Boot
 You can find the complete source at [java framework with smart driver for YSQL](https://github.com/yugabyte/yb-ms-data.git). This project has directories for different java frameworks such as spring-boot, quarkus and micronaut. Clone this repository to a local workstation and open the `yb-ms-data` directory in your favorite IDE to easily navigate and explore Spring Boot's project files.
 
 ```sh
-git clone https://github.com/srinivasa-vasu/yb-ms-data.git
+git clone [REPO]
 ```
 
 ## Dependencies
