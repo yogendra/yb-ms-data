@@ -100,11 +100,11 @@ cd yb-ms-data/micronaut
 To build the app:
 
 ```sh
-gradle nativeCompile
+gradle nativeOptimizedCompile
 ```
 
 To run the app with `ysql` profile:
 
 ```sh
-./build/native/nativeCompile/yb-micronaut-data -Dmicronaut.environments=ysql
+./build/native/nativeOptimizedCompile/yb-micronaut-data -Dmicronaut.environments=ysql
 ```

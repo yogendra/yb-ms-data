@@ -2,26 +2,23 @@ package io.mservice.todo;
 
 import java.util.UUID;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import io.micronaut.serde.annotation.Serdeable;
+import jakarta.persistence.Cacheable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Table(name = "todo")
 @NamedQuery(name = "Todo.findAll", query = "SELECT t FROM Todo t ORDER BY t.id desc")
 @Cacheable
+@Serdeable
 public class Todo {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Type(type = "pg-uuid")
+	@UuidGenerator
 	private UUID id;
 
 	private String task;
