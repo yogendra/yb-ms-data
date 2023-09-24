@@ -4,59 +4,90 @@ tasks:
   - name: 1a-ybdb
     env:
       HOST_LB: "127.0.0.1"
+      HOST_LB2: "127.0.0.2"
+      HOST_LB3: "127.0.0.3"
     command: |
       mkdir -p ${GITPOD_REPO_ROOT}/ybdb
-      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb --advertise_address=$HOST_LB
+      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd1 --advertise_address=$HOST_LB --cloud_location=ybcloud.ap-south-1.ap-south-1a --fault_tolerance=zone
+      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd2 --advertise_address=$HOST_LB2 --join=$HOST_LB --cloud_location=ybcloud.ap-south-1.ap-south-1b --fault_tolerance=zone
+      yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd3 --advertise_address=$HOST_LB3 --join=$HOST_LB --cloud_location=ybcloud.ap-south-1.ap-south-1c --fault_tolerance=zone
+      yugabyted configure --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd1 --fault_tolerance=zone
   - name: 1b-ysqlsh
     command: |
-      gp await-port 5433
-      sleep 5
+      gp ports await 5433 && sleep 5
       ysqlsh
-  - name: 2a-jvm-native
+  - name: 2a-install-jvm
     env:
-      JAVA_VERSION: 17.0.7-librca
-      JAVA_NATIVE_VERSION: 20.0.1-graalce
+      JAVA_VERSION: 17.0.8-librca
     init: |
       echo y | sdk install java $JAVA_VERSION || true
-      echo y | sdk install java $JAVA_NATIVE_VERSION || true
       gp sync-done jvm-17
   - name: 2b-spring-boot
     env:
       SPRING_PROFILES_ACTIVE: ysql
-      JAVA_NATIVE_VERSION: 20.0.1-graalce
     before:
       cd springboot
     init: |
       gp sync-await jvm-17
-      sdk use java $JAVA_NATIVE_VERSION
-      gradle nativeCompile
+      gradle build -x test
     command: |
-      ./build/native/nativeCompile/yb-boot-data
+      gp ports await 5433
+      gradle bootRun
   - name: 2c-quarkus
     env:
       QUARKUS_PROFILE: ysql
-      QUARKUS_PACKAGE_TYPE: native
-      JAVA_NATIVE_VERSION: 20.0.1-graalce
     before:
       cd quarkus
     init: |
       gp sync-await jvm-17
-      sdk use java $JAVA_NATIVE_VERSION
       gradle quarkusBuild -x test
-#     gradle -Dquarkus.profile=ysql -Dquarkus.package.type=native quarkusBuild
     command: |
-      gp await-port 5433
-      ./build/yb-quarkus-data-1.0.0-runner
+      gp ports await 5433
+      gradle quarkusDev
   - name: 2d-micronaut
     env:
       MICRONAUT_ENVIRONMENTS: ysql
-      JAVA_NATIVE_VERSION: 20.0.1-graalce
     before:
       cd micronaut
     init: |
       gp sync-await jvm-17
-      sdk use java $JAVA_NATIVE_VERSION
-      gradle nativeCompile -x test
+      gradle build -x test
     command: |
       gp await-port 5433
-      ./build/native/nativeCompile/yb-micronaut-data
+      gradle run
+
+# exposed ports
+ports:
+  - port: 8080
+    name: spring-boot
+    onOpen: notify
+  - port: 8085
+    name: quarkus
+    onOpen: notify
+  - port: 8090
+    name: micronaut
+    onOpen: notify
+  - port: 7000
+    name: yb-master-web
+    onOpen: ignore
+  - port: 9000
+    name: yb-tserver-web
+    onOpen: ignore
+  - port: 7100
+    name: yb-master-rpc
+    onOpen: ignore
+  - port: 9100
+    name: yb-tserver-rpc
+    onOpen: ignore
+  - port: 5433
+    name: ysql
+    onOpen: ignore
+  - port: 13000
+    name: ysql-api
+    onOpen: ignore
+  - port: 9042
+    name: ycql
+    onOpen: ignore
+  - port: 12000
+    name: ycql-api
+    onOpen: ignore

@@ -9,13 +9,13 @@ tasks:
       yugabyted start --base_dir=${GITPOD_REPO_ROOT}/ybdb --advertise_address=$HOST_LB
   - name: 1b-ysqlsh
     command: |
-      gp await-port 5433
+      gp ports await 5433
       sleep 5
       ysqlsh
   - name: 2a-jvm-native
     env:
-      JAVA_VERSION: 17.0.7-librca
-      JAVA_NATIVE_VERSION: 20.0.1-graalce
+      JAVA_VERSION: 17.0.8-librca
+      JAVA_NATIVE_VERSION: 21-graalce
     init: |
       echo y | sdk install java $JAVA_VERSION || true
       echo y | sdk install java $JAVA_NATIVE_VERSION || true
@@ -45,7 +45,7 @@ tasks:
       gradle quarkusBuild -x test
 #     gradle -Dquarkus.profile=ysql -Dquarkus.package.type=native quarkusBuild
     command: |
-      gp await-port 5433
+      gp ports await 5433
       ./build/yb-quarkus-data-1.0.0-runner
   - name: 2d-micronaut
     env:
@@ -58,5 +58,5 @@ tasks:
       sdk use java $JAVA_NATIVE_VERSION
       gradle nativeCompile -x test
     command: |
-      gp await-port 5433
+      gp ports await 5433
       ./build/native/nativeCompile/yb-micronaut-data

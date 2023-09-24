@@ -14,15 +14,13 @@ tasks:
       yugabyted configure --base_dir=${GITPOD_REPO_ROOT}/ybdb/ybd1 --fault_tolerance=zone
   - name: 1b-ysqlsh
     command: |
-      gp await-port 5433 && sleep 5
+      gp ports await 5433 && sleep 5
       ysqlsh
   - name: 2a-install-jvm
     env:
-      JAVA_VERSION: 17.0.7-librca
-      JAVA_NATIVE_VERSION: 20.0.1-graalce
+      JAVA_VERSION: 17.0.8-librca
     init: |
       echo y | sdk install java $JAVA_VERSION || true
-      echo y | sdk install java $JAVA_NATIVE_VERSION || true
       gp sync-done jvm-17
   - name: 2b-spring-boot
     env:
@@ -33,7 +31,7 @@ tasks:
       gp sync-await jvm-17
       gradle build -x test
     command: |
-      gp await-port 5433
+      gp ports await 5433
       gradle bootRun
   - name: 2c-quarkus
     env:
@@ -44,7 +42,7 @@ tasks:
       gp sync-await jvm-17
       gradle quarkusBuild -x test
     command: |
-      gp await-port 5433
+      gp ports await 5433
       gradle quarkusDev
   - name: 2d-micronaut
     env:
