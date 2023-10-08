@@ -16,11 +16,11 @@ spring:
     open-in-view: false
   datasource:
     hikari:
-      minimum-idle: 2
-      maximum-pool-size: 10
+      minimum-idle: 3
+      maximum-pool-size: 3
       auto-commit: false
       keepalive-time: 120000
-      connection-init-sql: "begin; prepare warmup as SELECT 1; execute warmup; commit;"
-      schema: stodo
+      connection-init-sql: "set search_path=stodo,public; begin; prepare warmup as SELECT 1; execute warmup; commit;"
+#      schema: stodo
 server:
   port: 8080
