@@ -1,6 +1,7 @@
 package io.mservice.todo;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,6 +20,7 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.TypeReference;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.data.domain.Sort;
@@ -60,6 +62,31 @@ public class TodoApplication {
 		retryTemplate.setRetryPolicy(todoRetryPolicy);
 		retryTemplate.setBackOffPolicy(backOffPolicy);
 		return retryTemplate;
+	}
+
+	@Bean
+	public FlywayMigrationStrategy flywayMigrationStrategy() {
+		return flyway -> {
+			try {
+				flyway.migrate();
+			}
+			catch (Throwable cause) {
+				do {
+					if (cause instanceof SQLException exception && ("40001".equals(exception.getSQLState()))) {
+						// Flyway is designed to use at least two connections, one for the
+						// metadata table and one for the migrations. If the migration
+						// flow modifies the system catalog, queries in the metadata
+						// session will fail with the catalog snapshot exception because
+						// flyway keeps the same transaction for the metadata connection.
+						// It needs to be retried.
+						flyway.migrate();
+						break;
+					}
+					cause = cause.getCause();
+				}
+				while (cause != null);
+			}
+		};
 	}
 
 	@RouterOperations({
