@@ -1,2 +1,4 @@
-package io.mservice.todo;public class TodoSSLTrustStore {
+package io.mservice.todo;
+
+public class TodoSSLTrustStore {
 }
