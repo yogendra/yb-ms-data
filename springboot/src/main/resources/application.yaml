@@ -21,6 +21,8 @@ spring:
       auto-commit: false
       keepalive-time: 120000
       connection-init-sql: "set search_path=stodo,public; begin; prepare warmup as SELECT 1; execute warmup; commit;"
+      data-source-properties:
+        ApplicationName: yb-ms-data
 #      schema: stodo
 server:
   port: 8080
