@@ -2,17 +2,18 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-    id("org.springframework.boot") version "3.1.5"
-    id("io.spring.dependency-management") version "1.1.0"
+    id("org.springframework.boot") version "3.2.0"
+    id("io.spring.dependency-management") version "1.1.4"
     id("java")
-    id("org.graalvm.buildtools.native") version "0.9.23"
+    id("org.hibernate.orm") version "6.3.1.Final"
+    id("org.graalvm.buildtools.native") version "0.9.28"
 }
 
 group = "io.mservice.boot"
 version = "1.0.0"
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 extra["testcontainersVersion"] = "1.17.6"

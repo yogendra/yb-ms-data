@@ -18,9 +18,8 @@ public class TodoRetryPolicy extends ExceptionClassifierRetryPolicy {
 	// 40001 - optimistic locking or leader changes abort
 	// 40P01 - deadlock
 	// 08006 - connection issues
-	// XX000 - other connection related issues (not classified)
 	// 57P01 - broken pool conn (invalidated connections because of node failure, etc.)
-	private final String SQL_STATE = "^(40001)|(40P01)|(57P01)|(08006)|(XX000)";
+	private final String SQL_STATE = "^(40001)|(40P01)|(57P01)|(08006)";
 
 	private final RetryPolicy sp = new SimpleRetryPolicy(3);
 
