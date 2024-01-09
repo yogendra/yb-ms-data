@@ -5,13 +5,25 @@ updates:
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 2
+    groups:
+      boot:
+        patterns:
+          - "*"
   - package-ecosystem: "gradle"
     directory: "quarkus/"
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 2
+    groups:
+      quarkus:
+        patterns:
+          - "*"
   - package-ecosystem: "gradle"
     directory: "micronaut/"
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 2
+    groups:
+      micronaut:
+        patterns:
+          - "*"
