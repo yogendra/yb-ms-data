@@ -1,7 +1,7 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.2.1"
-    id("io.micronaut.aot") version "4.0.2"
+    id("io.micronaut.aot") version "4.2.1"
 }
 
 version = "1.0.0"
@@ -47,11 +47,11 @@ dependencies {
     implementation("io.swagger.core.v3:swagger-annotations")
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("jakarta.validation:jakarta.validation-api")
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
-    implementation("org.postgresql:postgresql:42.5.1")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-4")
+    implementation("org.postgresql:postgresql:42.7.1")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.yaml:snakeyaml")
-    runtimeOnly("org.fusesource.jansi:jansi:2.4.0")
+    runtimeOnly("org.fusesource.jansi:jansi:2.4.1")
 }
 
 
