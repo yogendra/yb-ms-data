@@ -6,7 +6,7 @@ quarkus:
       initial-size: 2
       max-size: 10
       min-size: 2
-      new-connection-sql: "set search_path=qtodo,public;"
+      new-connection-sql: "set yb_silence_advisory_locks_not_supported_error=on; set search_path=qtodo,public; begin; prepare warmup as SELECT 1; execute warmup; commit;"
       additional-jdbc-properties:
         currentSchema: qtodo
     db-kind: pgsql
