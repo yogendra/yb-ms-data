@@ -37,7 +37,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
     implementation("org.springframework.retry:spring-retry")
-    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
+    implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-4")
     implementation("org.postgresql:postgresql:42.5.1")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
