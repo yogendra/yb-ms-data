@@ -23,7 +23,7 @@ dependencies {
     implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
 
     implementation("com.yugabyte:jdbc-yugabytedb:42.3.5-yb-1")
-    implementation("org.postgresql:postgresql:42.5.1")
+    implementation("org.postgresql:postgresql:42.7.1")
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
