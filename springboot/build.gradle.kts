@@ -2,10 +2,10 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-    id("org.springframework.boot") version "3.2.1"
+    id("org.springframework.boot") version "3.2.2"
     id("io.spring.dependency-management") version "1.1.4"
     id("java")
-    id("org.hibernate.orm") version "6.4.1.Final"
+    id("org.hibernate.orm") version "6.4.2.Final"
     id("org.graalvm.buildtools.native") version "0.9.28"
 }
 
@@ -48,7 +48,7 @@ dependencies {
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:9.5.0")
+    testImplementation("org.flywaydb.flyway-test-extensions:flyway-spring-test:10.0.0")
     testImplementation("org.testcontainers:yugabytedb")
     testImplementation("org.testcontainers:junit-jupiter")
 }
