@@ -15,11 +15,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TodoRetryPolicy extends ExceptionClassifierRetryPolicy {
 
-	// 40001 - optimistic locking or leader changes abort
+	// 40001 - optimistic concurrency or serialization_failure
 	// 40P01 - deadlock
 	// 08006 - connection issues
 	// 57P01 - broken pool conn (invalidated connections because of node failure, etc.)
-	private final String SQL_STATE = "^(40001)|(40P01)|(57P01)|(08006)";
+	// XX000 - RPC failures (could be intermittent)
+	private final String SQL_STATE = "^(40001)|(40P01)|(57P01)|(08006)|(XX000)";
 
 	private final RetryPolicy sp = new SimpleRetryPolicy(3);
 
