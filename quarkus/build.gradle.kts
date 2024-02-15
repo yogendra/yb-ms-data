@@ -1,6 +1,6 @@
 plugins {
     java
-    id("io.quarkus") version "3.6.4"
+    id("io.quarkus") version "3.7.1"
 }
 
 repositories {
@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation(enforcedPlatform("io.quarkus.platform:quarkus-bom:3.6.4"))
+    implementation(enforcedPlatform("io.quarkus.platform:quarkus-bom:3.7.1"))
     implementation("io.quarkus:quarkus-hibernate-orm")
     implementation("io.quarkus:quarkus-flyway")
     implementation("io.quarkus:quarkus-resteasy")
