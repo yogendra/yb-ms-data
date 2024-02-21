@@ -58,7 +58,7 @@ public class TodoApplication {
 	public RetryTemplate retryTemplate(TodoRetryPolicy todoRetryPolicy) {
 		RetryTemplate retryTemplate = new RetryTemplate();
 		ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
-		backOffPolicy.setMaxInterval(5000); // 10s
+		backOffPolicy.setMaxInterval(5000); // in seconds (just a reference; needs to be updated as per the need)
 		retryTemplate.setRetryPolicy(todoRetryPolicy);
 		retryTemplate.setBackOffPolicy(backOffPolicy);
 		return retryTemplate;
