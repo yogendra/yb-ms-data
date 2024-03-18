@@ -16,11 +16,14 @@ spring:
     open-in-view: false
   datasource:
     hikari:
-      minimum-idle: 3
-      maximum-pool-size: 3
+      minimum-idle: 2
+      maximum-pool-size: 2
       auto-commit: false
       keepalive-time: 120000
-      connection-init-sql: "set search_path=stodo,public; begin; prepare warmup as SELECT 1; execute warmup; commit;"
-#      schema: stodo
+      connection-init-sql: "set yb_silence_advisory_locks_not_supported_error=on; set search_path=stodo,public; begin; prepare warmup as SELECT 1; execute warmup; commit;"
+      connection-timeout: 5000
+      data-source-properties:
+        ApplicationName: yb-ms-data
+        socketTimeout: 30
 server:
   port: 8080
